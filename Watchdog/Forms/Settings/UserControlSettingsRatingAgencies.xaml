@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="Watchdog.Forms.Settings.UserControlSettingsRatingAgencies"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Watchdog.Forms.Settings"
+             xmlns:entity="clr-namespace:Watchdog.Entities"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <DataGrid x:Name="DgRatingAgencies" AutoGenerateColumns="False" Margin="0 0 0 10" SelectionChanged="RatingAgenciesSelectionChanged" RowEditEnding="RatingAgenciesRowEditEnding">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="0.3*" Header="Kurzbezeichnung" Binding="{Binding ShortName, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name, Mode=TwoWay}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Löschen" Click="RatingAgenciesMenuItemDeleteClick"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <DataGrid x:Name="DgRatings" AutoGenerateColumns="False" Margin="0 0 0 10" RowEditEnding="RatingsRowEditEnding">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Ratingcode" Binding="{Binding RatingCode, Mode=TwoWay, ValidatesOnDataErrors=True}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Numerischer Wert" Binding="{Binding RatingNumericValue, Mode=TwoWay}"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Löschen" Click="RatingsMenuItemDeleteClick"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Bestätigen" HorizontalAlignment="Center" Click="ButtonSubmitClick"></Button>
+        </StackPanel>            
+    </StackPanel>
+</UserControl>
