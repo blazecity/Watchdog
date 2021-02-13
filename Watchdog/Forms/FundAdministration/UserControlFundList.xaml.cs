@@ -28,6 +28,10 @@ namespace Watchdog.Forms.FundAdministration
         private void MenuItemChangeAllocationClick(object sender, System.Windows.RoutedEventArgs e)
         {
             Fund selectedFund = DgFunds.SelectedItem as Fund;
+            if (selectedFund == null)
+            {
+                return;
+            }
             Thread thread = new Thread(() =>
             {
                 FormFundAllocation formSettings = new FormFundAllocation(selectedFund);

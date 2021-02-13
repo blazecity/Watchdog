@@ -18,7 +18,7 @@
             x:Name="AllocationGrid"
             Width="auto"
             Height="auto"
-            Margin="0,20,0,0" />
-        <Button Click="ButtonSubmitClick">Bestätigen</Button>
+            Margin="0,20,0,20" />
+        <Button HorizontalAlignment="Left" Click="ButtonSubmitClick">Bestätigen</Button>
     </StackPanel>
 </UserControl>
