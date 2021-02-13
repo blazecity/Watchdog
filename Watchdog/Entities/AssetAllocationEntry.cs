@@ -1,11 +1,12 @@
 ﻿using ExShift.Mapping;
+using Watchdog.Forms.Util;
 
 namespace Watchdog.Entities
 {
-    public class AssetAllocationEntry : IPersistable
+    public class AssetAllocationEntry : IPersistable, IAllocation
     {
         [PrimaryKey]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [ForeignKey]
         public AssetClass AssetClass { get; set; }
         [ForeignKey]

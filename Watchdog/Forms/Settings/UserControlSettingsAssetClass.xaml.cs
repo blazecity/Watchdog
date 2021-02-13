@@ -1,11 +1,12 @@
 ﻿using Watchdog.Entities;
+using Watchdog.Forms.Util;
 
 namespace Watchdog.Forms.Settings
 {
     /// <summary>
     /// Interaktionslogik für UserControlAssetClasses.xaml
     /// </summary>
-    public partial class UserControlSettingsAssetClass : UserControlSettings<AssetClass>
+    public partial class UserControlSettingsAssetClass : UserControlCustom<AssetClass>
     {
         public UserControlSettingsAssetClass()
         {

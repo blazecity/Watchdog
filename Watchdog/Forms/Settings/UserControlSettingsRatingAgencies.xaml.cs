@@ -46,7 +46,7 @@ namespace Watchdog.Forms.Settings
 
         private void RatingAgenciesSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(DgRatingAgencies.SelectedItem is RatingAgency selectedAgency) || selectedAgency.ShortName == "" || selectedAgency.Name == null)
+            if (!(DgRatingAgencies.SelectedItem is RatingAgency selectedAgency) || string.IsNullOrEmpty(selectedAgency.ShortName))
             {
                 DgRatings.IsReadOnly = true;
                 return;
@@ -154,8 +154,9 @@ namespace Watchdog.Forms.Settings
 
         private List<Rating> GetRatingsByAgency(RatingAgency ratingAgency)
         {
+            string whereClause = string.Concat("Agency = ", "'", AttributeHelper.GetPrimaryKey(ratingAgency), "'");
             List<Rating> resultRatings = Query<Rating>.Select()
-                                                      .Where(string.Concat("RatingAgency = ", AttributeHelper.GetPrimaryKey(ratingAgency)))
+                                                      .Where(whereClause)
                                                       .Run();
 
             if (ratingsCache.TryGetValue(ratingAgency, out DataGridCache<Rating> ratingCache))

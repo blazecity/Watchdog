@@ -16,10 +16,12 @@ namespace Watchdog
     {
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+#if DEBUG
+            ExcelObjectMapper.Initialize(Globals.WatchdogAddIn.Application.ActiveWorkbook);
+#endif
             if (Globals.WatchdogAddIn.Application.ActiveWorkbook.Name == "Depotbank")
             {
-                ExcelObjectMapper.SetWorkbook(Globals.WatchdogAddIn.Application.ActiveWorkbook);
-                ExcelObjectMapper.Initialize();
+                ExcelObjectMapper.Initialize(Globals.WatchdogAddIn.Application.ActiveWorkbook);
             }
             
         }

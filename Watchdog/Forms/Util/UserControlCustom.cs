@@ -4,17 +4,16 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Watchdog.Forms.Util;
 
-namespace Watchdog.Forms.Settings
+namespace Watchdog.Forms.Util
 {
-    public class UserControlSettings<T> : UserControl where T : IPersistable, new()
+    public class UserControlCustom<T> : UserControl where T : IPersistable, new()
     {
         protected readonly ObservableCollection<T> observableCollection;
         protected readonly DataGridCache<T> dataGridCache;
         protected DataGrid dataGrid;
 
-        public UserControlSettings()
+        public UserControlCustom()
         {
             dataGridCache = new DataGridCache<T>();
             observableCollection = new ObservableCollection<T>(ExcelObjectMapper.GetAllObjects<T>());
@@ -27,7 +26,7 @@ namespace Watchdog.Forms.Settings
             observableCollection.CollectionChanged += CollectionChanged;
         }
 
-        public void MenuItemDeleteClick(object sender, RoutedEventArgs e)
+        public virtual void MenuItemDeleteClick(object sender, RoutedEventArgs e)
         {
             if (observableCollection.Count == 0)
             {
@@ -53,7 +52,7 @@ namespace Watchdog.Forms.Settings
             }
         }
 
-        public void ButtonSubmitClick(object sender, RoutedEventArgs e)
+        public virtual void ButtonSubmitClick(object sender, RoutedEventArgs e)
         {
             dataGridCache.ExecutePersistenceActions();
         }

@@ -181,10 +181,28 @@
     <Compile Include="Entities\RatingQuoteRule.cs" />
     <Compile Include="Entities\Rule.cs" />
     <Compile Include="Entities\RuleKind.cs" />
+    <Compile Include="Forms\FundAdministration\FormFundAllocation.xaml.cs">
+      <DependentUpon>FormFundAllocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FundAdministration\FormFundAdministration.xaml.cs">
+      <DependentUpon>FormFundAdministration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FundAdministration\UserControlFundAllocation.xaml.cs">
+      <DependentUpon>UserControlFundAllocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FundAdministration\UserControlFundList.xaml.cs">
+      <DependentUpon>UserControlFundList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Settings\FormSettings.xaml.cs">
       <DependentUpon>FormSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Settings\UserControlSettings.cs" />
+    <Compile Include="Forms\Util\AllocationTable.cs" />
+    <Compile Include="Forms\Util\AllocationTotal.cs" />
+    <Compile Include="Forms\Util\BorderTool.cs" />
+    <Compile Include="Forms\Util\GridAllocationEntry.cs" />
+    <Compile Include="Forms\Util\IAllocation.cs" />
+    <Compile Include="Forms\Util\IPassObject.cs" />
+    <Compile Include="Forms\Util\UserControlCustom.cs" />
     <Compile Include="Forms\Settings\UserControlSettingsAssetClass.xaml.cs">
       <DependentUpon>UserControlSettingsAssetClass.xaml</DependentUpon>
     </Compile>
@@ -249,6 +267,22 @@
     <Content Include="Ribbon\Resources\settings.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Forms\FundAdministration\FormFundAllocation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\FundAdministration\FormFundAdministration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FundAdministration\UserControlFundAllocation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FundAdministration\UserControlFundList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Settings\FormSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -266,6 +300,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

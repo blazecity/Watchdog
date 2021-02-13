@@ -1,10 +1,10 @@
-﻿<local:UserControlSettings x:Class="Watchdog.Forms.Settings.UserControlSettingsCurrency" 
+﻿<local:UserControlCustom x:Class="Watchdog.Forms.Settings.UserControlSettingsCurrency" 
                            x:TypeArguments="entity:Currency"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Watchdog.Forms.Settings" 
+             xmlns:local="clr-namespace:Watchdog.Forms.Util" 
                            xmlns:entity="clr-namespace:Watchdog.Entities"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -24,4 +24,4 @@
             <Button Content="Bestätigen" Click="ButtonSubmitClick"></Button>
         </StackPanel>
     </StackPanel>
-</local:UserControlSettings>
+</local:UserControlCustom>

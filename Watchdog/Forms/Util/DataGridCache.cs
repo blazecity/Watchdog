@@ -81,7 +81,6 @@ namespace Watchdog.Forms.Util
             {
                 ExcelObjectMapper.Delete(item);
             }
-
             ClearCache();
         }
     }
