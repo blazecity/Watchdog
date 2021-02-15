@@ -1,0 +1,81 @@
+﻿<UserControl
+    x:Class="Watchdog.Forms.RuleAdministration.MainView.UserControlRuleOverview"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="btvc" />
+    </UserControl.Resources>
+    <StackPanel>
+        <Label
+            Margin="0,0,0,20"
+            FontSize="20"
+            FontWeight="Bold">
+            Regelverwaltung
+        </Label>
+        <DataGrid x:Name="DgRules" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="0.4*"
+                    Binding="{Binding Name, Mode=TwoWay}"
+                    Header="Name" />
+                <DataGridComboBoxColumn
+                    x:Name="ruleKindColumn"
+                    Width="0.3*"
+                    DisplayMemberPath="Description"
+                    Header="Regelart"
+                    SelectedValueBinding="{Binding RuleKind, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="ItemsSource" Value="{Binding ruleKinds}" />
+                        </Style>
+                    </DataGridComboBoxColumn.ElementStyle>
+                    <DataGridComboBoxColumn.EditingElementStyle>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="ItemsSource" Value="{Binding ruleKinds}" />
+                        </Style>
+                    </DataGridComboBoxColumn.EditingElementStyle>
+                </DataGridComboBoxColumn>
+                <DataGridTemplateColumn Width="*" Header="Fonds">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock
+                                    Loaded="TextBlock_Loaded"
+                                    MouseDown="TextBlockMouseDown"
+                                    Text="{Binding Display}" />
+                                <ComboBox
+                                    DropDownClosed="ComboBoxDropDownClosed"
+                                    DropDownOpened="ComboBoxDropDownOpened"
+                                    IsReadOnly="True"
+                                    IsSynchronizedWithCurrentItem="False"
+                                    Loaded="ComboBoxLoaded"
+                                    Visibility="Collapsed">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <CheckBox
+                                                    Margin="0,0,10,0"
+                                                    IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Visibility="{Binding IsNotSelected, Converter={StaticResource btvc}}" />
+                                                <TextBlock Text="{Binding Display}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+            <Button Content="Bestätigen" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

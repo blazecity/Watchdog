@@ -193,6 +193,12 @@
     <Compile Include="Forms\FundAdministration\UserControlFundList.xaml.cs">
       <DependentUpon>UserControlFundList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RuleAdministration\MainView\FormRuleAdministration.xaml.cs">
+      <DependentUpon>FormRuleAdministration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RuleAdministration\MainView\UserControlRuleOverview.xaml.cs">
+      <DependentUpon>UserControlRuleOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Settings\FormSettings.xaml.cs">
       <DependentUpon>FormSettings.xaml</DependentUpon>
     </Compile>
@@ -202,6 +208,7 @@
     <Compile Include="Forms\Util\GridAllocationEntry.cs" />
     <Compile Include="Forms\Util\IAllocation.cs" />
     <Compile Include="Forms\Util\IPassObject.cs" />
+    <Compile Include="Forms\Util\MultiSelectItem.cs" />
     <Compile Include="Forms\Util\UserControlCustom.cs" />
     <Compile Include="Forms\Settings\UserControlSettingsAssetClass.xaml.cs">
       <DependentUpon>UserControlSettingsAssetClass.xaml</DependentUpon>
@@ -283,6 +290,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\RuleAdministration\MainView\FormRuleAdministration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\RuleAdministration\MainView\UserControlRuleOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Settings\FormSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -301,7 +316,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\RuleAdministration\" />
+    <Folder Include="Forms\RuleAdministration\RuleView\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

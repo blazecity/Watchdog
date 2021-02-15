@@ -1,8 +1,9 @@
-﻿using ExShift.Mapping;
-using Microsoft.Office.Tools.Ribbon;
+﻿using Microsoft.Office.Tools.Ribbon;
 using System.Threading;
+using System.Windows;
 using System.Windows.Threading;
 using Watchdog.Forms.FundAdministration;
+using Watchdog.Forms.RuleAdministration.MainView;
 using Watchdog.Forms.Settings;
 
 namespace Watchdog.Ribbon
@@ -15,24 +16,26 @@ namespace Watchdog.Ribbon
 
         private void WdRibbonButtonFundAdminClick(object sender, RibbonControlEventArgs e)
         {
-            Thread thread = new Thread(() =>
-            {
-                FormFundAdministration formSettings = new FormFundAdministration();
-                formSettings.Show();
-                formSettings.Closed += (sender2, e2) => formSettings.Dispatcher.InvokeShutdown();
-                Dispatcher.Run();
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+            StartUIThread<FormFundAdministration>();
         }
 
         private void WdRibbonButtonSettings_Click(object sender, RibbonControlEventArgs e)
         {
+            StartUIThread<FormSettings>();
+        }
+
+        private void WdRibbonButtonRuleAdmin_Click(object sender, RibbonControlEventArgs e)
+        {
+            StartUIThread<FormRuleAdministration>();
+        }
+
+        private void StartUIThread<T>() where T : Window, new()
+        {
             Thread thread = new Thread(() =>
             {
-                FormSettings formSettings = new FormSettings();
-                formSettings.Show();
-                formSettings.Closed += (sender2, e2) => formSettings.Dispatcher.InvokeShutdown();
+                T window = new T();
+                window.Show();
+                window.Closed += (sender, e) => window.Dispatcher.InvokeShutdown();
                 Dispatcher.Run();
             });
             thread.SetApartmentState(ApartmentState.STA);

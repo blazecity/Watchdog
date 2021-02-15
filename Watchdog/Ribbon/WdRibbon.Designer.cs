@@ -40,6 +40,7 @@ namespace Watchdog.Ribbon
             this.wdRibbonGroup = this.Factory.CreateRibbonGroup();
             this.wdRibbonButtonSettings = this.Factory.CreateRibbonButton();
             this.wdRibbonButtonFundAdmin = this.Factory.CreateRibbonButton();
+            this.wdRibbonButtonRuleAdmin = this.Factory.CreateRibbonButton();
             this.wdRibbonTab.SuspendLayout();
             this.wdRibbonGroup.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +55,7 @@ namespace Watchdog.Ribbon
             // 
             this.wdRibbonGroup.Items.Add(this.wdRibbonButtonSettings);
             this.wdRibbonGroup.Items.Add(this.wdRibbonButtonFundAdmin);
+            this.wdRibbonGroup.Items.Add(this.wdRibbonButtonRuleAdmin);
             this.wdRibbonGroup.Label = "Depotbank";
             this.wdRibbonGroup.Name = "wdRibbonGroup";
             // 
@@ -75,6 +77,15 @@ namespace Watchdog.Ribbon
             this.wdRibbonButtonFundAdmin.ShowImage = true;
             this.wdRibbonButtonFundAdmin.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.WdRibbonButtonFundAdminClick);
             // 
+            // wdRibbonButtonRuleAdmin
+            // 
+            this.wdRibbonButtonRuleAdmin.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.wdRibbonButtonRuleAdmin.Image = global::Watchdog.Properties.Resources.ruleset;
+            this.wdRibbonButtonRuleAdmin.Label = "Regelverwaltung";
+            this.wdRibbonButtonRuleAdmin.Name = "wdRibbonButtonRuleAdmin";
+            this.wdRibbonButtonRuleAdmin.ShowImage = true;
+            this.wdRibbonButtonRuleAdmin.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.WdRibbonButtonRuleAdmin_Click);
+            // 
             // WdRibbon
             // 
             this.Name = "WdRibbon";
@@ -95,5 +106,6 @@ namespace Watchdog.Ribbon
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup wdRibbonGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton wdRibbonButtonFundAdmin;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton wdRibbonButtonSettings;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton wdRibbonButtonRuleAdmin;
     }
 }

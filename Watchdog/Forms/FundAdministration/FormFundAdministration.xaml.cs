@@ -1,7 +1,4 @@
-﻿using ExShift.Mapping;
-using System.Collections.Generic;
-using System.Windows;
-using Watchdog.Entities;
+﻿using System.Windows;
 
 namespace Watchdog.Forms.FundAdministration
 {
