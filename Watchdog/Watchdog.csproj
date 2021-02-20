@@ -143,10 +143,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
-      <Private>False</Private>
-      <EmbedInteropTypes>true</EmbedInteropTypes>
-    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <Private>False</Private>
       <EmbedInteropTypes>true</EmbedInteropTypes>
@@ -173,12 +169,14 @@
     <Compile Include="Entities\BanList.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Currency.cs" />
+    <Compile Include="Entities\DurationRule.cs" />
+    <Compile Include="Entities\DurationRuleEntry.cs" />
     <Compile Include="Entities\Fund.cs" />
     <Compile Include="Entities\Issuer.cs" />
     <Compile Include="Entities\NumericRule.cs" />
     <Compile Include="Entities\Rating.cs" />
     <Compile Include="Entities\RatingAgency.cs" />
-    <Compile Include="Entities\RatingQuoteRule.cs" />
+    <Compile Include="Entities\RatingRatioRule.cs" />
     <Compile Include="Entities\Rule.cs" />
     <Compile Include="Entities\RuleKind.cs" />
     <Compile Include="Forms\FundAdministration\FormFundAllocation.xaml.cs">
@@ -199,16 +197,46 @@
     <Compile Include="Forms\RuleAdministration\MainView\UserControlRuleOverview.xaml.cs">
       <DependentUpon>UserControlRuleOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RuleAdministration\RuleView\FormRuleView.xaml.cs">
+      <DependentUpon>FormRuleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RuleAdministration\RuleView\UserControlAllowListAssets.xaml.cs">
+      <DependentUpon>UserControlAllowListAssets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RuleAdministration\RuleView\UserControlBanListAssetClasses.xaml.cs">
+      <DependentUpon>UserControlBanListAssetClasses.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RuleAdministration\RuleView\UserControlBanListCountries.xaml.cs">
+      <DependentUpon>UserControlBanListCountries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RuleAdministration\RuleView\UserControlDurationRule.xaml.cs">
+      <DependentUpon>UserControlDurationRule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RuleAdministration\RuleView\UserControlMaxRatingRatio.xaml.cs">
+      <DependentUpon>UserControlMaxRatingRatio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RuleAdministration\RuleView\UserControlWithOneNumericValue.xaml.cs">
+      <DependentUpon>UserControlWithOneNumericValue.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Settings\FormSettings.xaml.cs">
       <DependentUpon>FormSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Settings\UserControlSettingsCountry.xaml.cs">
+      <DependentUpon>UserControlSettingsCountry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Util\AllocationTable.cs" />
     <Compile Include="Forms\Util\AllocationTotal.cs" />
+    <Compile Include="Forms\Util\AllowBanListChildViewModel.cs" />
     <Compile Include="Forms\Util\BorderTool.cs" />
     <Compile Include="Forms\Util\GridAllocationEntry.cs" />
     <Compile Include="Forms\Util\IAllocation.cs" />
+    <Compile Include="Forms\Util\IEmbeddedRuleUserControl.cs" />
+    <Compile Include="Forms\Util\IObjectExchange.cs" />
     <Compile Include="Forms\Util\IPassObject.cs" />
     <Compile Include="Forms\Util\MultiSelectItem.cs" />
+    <Compile Include="Forms\Util\NumericViewModel.cs" />
+    <Compile Include="Forms\Util\RatingRatioRuleViewModel.cs" />
+    <Compile Include="Forms\Util\UIThreadHelper.cs" />
     <Compile Include="Forms\Util\UserControlCustom.cs" />
     <Compile Include="Forms\Settings\UserControlSettingsAssetClass.xaml.cs">
       <DependentUpon>UserControlSettingsAssetClass.xaml</DependentUpon>
@@ -220,6 +248,7 @@
       <DependentUpon>UserControlSettingsRatingAgencies.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Util\DataGridCache.cs" />
+    <Compile Include="Forms\Util\UserControlCustomAllowBanList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -298,11 +327,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\RuleAdministration\RuleView\FormRuleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RuleAdministration\RuleView\UserControlAllowListAssets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RuleAdministration\RuleView\UserControlBanListAssetClasses.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RuleAdministration\RuleView\UserControlBanListCountries.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RuleAdministration\RuleView\UserControlDurationRule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RuleAdministration\RuleView\UserControlMaxRatingRatio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\RuleAdministration\RuleView\UserControlWithOneNumericValue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Settings\FormSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\Settings\UserControlSettingsAssetClass.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Settings\UserControlSettingsCountry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -315,8 +376,35 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Forms\RuleAdministration\RuleView\" />
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

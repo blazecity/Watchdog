@@ -1,4 +1,5 @@
 ﻿using ExShift.Mapping;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -110,7 +111,7 @@ namespace Watchdog.Forms.Settings
             {
                 if (!string.IsNullOrEmpty(selectedRating.RatingCode))
                 {
-                    selectedRating.Id = string.Concat(selectedRating.RatingCode, selectedRating.Agency.ShortName);
+                    selectedRating.Id = Guid.NewGuid().ToString();
                 } 
                 else
                 {

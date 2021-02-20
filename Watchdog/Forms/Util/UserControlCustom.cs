@@ -9,7 +9,7 @@ namespace Watchdog.Forms.Util
 {
     public class UserControlCustom<T> : UserControl where T : IPersistable, new()
     {
-        protected readonly ObservableCollection<T> observableCollection;
+        protected ObservableCollection<T> observableCollection;
         protected readonly DataGridCache<T> dataGridCache;
         protected DataGrid dataGrid;
 
@@ -19,11 +19,14 @@ namespace Watchdog.Forms.Util
             observableCollection = new ObservableCollection<T>(ExcelObjectMapper.GetAllObjects<T>());
         }
 
-        public void BindData(DataGrid controlToBind)
+        public void BindData(DataGrid controlToBind, bool disableCollectionChanged = false)
         {
             dataGrid = controlToBind;
             controlToBind.ItemsSource = observableCollection;
-            observableCollection.CollectionChanged += CollectionChanged;
+            if (!disableCollectionChanged)
+            {
+                observableCollection.CollectionChanged += CollectionChanged;
+            }
         }
 
         public virtual void MenuItemDeleteClick(object sender, RoutedEventArgs e)

@@ -21,7 +21,7 @@ namespace Watchdog.Forms.Settings
                 { "trvItemAssetClasses", () => new UserControlSettingsAssetClass()},
                 { "trvItemCurrencies", () => new UserControlSettingsCurrency() },
                 { "trvItemRatingAgencies", () => new UserControlSettingsRatingAgencies() },
-                { "trvItemDurations", () => new UserControlSettingsAssetClass() }
+                { "trvItemCountries", () => new UserControlSettingsCountry() }
             };
             ElementHost.EnableModelessKeyboardInterop(GetWindow(this));
         }

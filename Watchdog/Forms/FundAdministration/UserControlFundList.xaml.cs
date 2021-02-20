@@ -1,7 +1,6 @@
 ﻿using ExShift.Mapping;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading;
 using System.Windows;
 using Watchdog.Entities;
 using Watchdog.Forms.Util;
@@ -13,7 +12,6 @@ namespace Watchdog.Forms.FundAdministration
     /// </summary>
     public partial class UserControlFundList : UserControlCustom<Fund>
     {
-        private readonly ObservableCollection<Currency> currencies;
         private readonly List<AssetAllocationEntry> entriesToDelete;
 
         public UserControlFundList()
@@ -21,8 +19,7 @@ namespace Watchdog.Forms.FundAdministration
             InitializeComponent();
             entriesToDelete = new List<AssetAllocationEntry>();
             BindData(DgFunds);
-            currencies = new ObservableCollection<Currency>(ExcelObjectMapper.GetAllObjects<Currency>());
-            currencyColumn.ItemsSource = currencies;
+            currencyColumn.ItemsSource = new ObservableCollection<Currency>(ExcelObjectMapper.GetAllObjects<Currency>());
         }
 
         private void MenuItemChangeAllocationClick(object sender, System.Windows.RoutedEventArgs e)
@@ -32,15 +29,8 @@ namespace Watchdog.Forms.FundAdministration
             {
                 return;
             }
-            Thread thread = new Thread(() =>
-            {
-                FormFundAllocation formSettings = new FormFundAllocation(selectedFund);
-                formSettings.Show();
-                formSettings.Closed += (sender2, e2) => formSettings.Dispatcher.InvokeShutdown();
-                System.Windows.Threading.Dispatcher.Run();
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
+            FormFundAllocation formSettings = new FormFundAllocation(selectedFund);
+            formSettings.Show();
         }
 
         public override void MenuItemDeleteClick(object sender, RoutedEventArgs e)

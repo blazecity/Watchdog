@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Watchdog.Entities
 {
-    public class AllowList : Rule
+    public class AllowList<T> : Rule
     {
         [ForeignKey]
         [MultiValue]
-        public List<Asset> Allowed { get; set; }
+        public List<T> Allowed { get; set; }
 
         public AllowList()
         {

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Watchdog.Entities;
+using Watchdog.Forms.RuleAdministration.RuleView;
 using Watchdog.Forms.Util;
 
 namespace Watchdog.Forms.RuleAdministration.MainView
@@ -13,27 +14,15 @@ namespace Watchdog.Forms.RuleAdministration.MainView
     /// <summary>
     /// Interaktionslogik für UserControlRuleOverview.xaml
     /// </summary>
-    public partial class UserControlRuleOverview : UserControl
+    public partial class UserControlRuleOverview : UserControlCustom<Rule>, IPassObject
     {
         private readonly List<Fund> funds;
 
         public UserControlRuleOverview()
         {
             InitializeComponent();
-            DgRules.ItemsSource = new ObservableCollection<Rule>();
-            ObservableCollection<RuleKind> rk = new ObservableCollection<RuleKind>
-            {
-                new RuleKind { RuleCode = "AA", Description = "Asset Allocation"},
-                new RuleKind { RuleCode = "CC", Description = "Währungsregel"}
-            };
-            ruleKindColumn.ItemsSource = rk;
-            // funds = new List<Fund>(ExcelObjectMapper.GetAllObjects<Fund>());
-            funds = new List<Fund>
-            {
-                new Fund { Name = "LUKB Expert-Ertrag" },
-                new Fund { Name = "LUKB Expert-Zuwachs" },
-                new Fund { Name = "LUKB Expert-TopGlobal" }
-            };
+            BindData(DgRules, true);
+            funds = new List<Fund>(ExcelObjectMapper.GetAllObjects<Fund>());
         }
 
         private void ComboBoxLoaded(object sender, RoutedEventArgs e)
@@ -114,6 +103,7 @@ namespace Watchdog.Forms.RuleAdministration.MainView
             // Set funds to fund list of the selected rule
             Rule rule = DgRules.SelectedItem as Rule;
             rule.FundList = ruleFundList;
+            DgRowEditEnding(null, null);
         }
 
         private void TextBlock_Loaded(object sender, RoutedEventArgs e)
@@ -138,6 +128,18 @@ namespace Watchdog.Forms.RuleAdministration.MainView
             MultiSelectItem msi = GetNeighbour<TextBlock>(cb).DataContext as MultiSelectItem;
             ObservableCollection<MultiSelectItem> itemsSource = cb.ItemsSource as ObservableCollection<MultiSelectItem>;
             itemsSource.Remove(msi);
+        }
+
+        private void AddNewRuleClick(object sender, RoutedEventArgs e)
+        {
+            FormRuleView formRuleView = new FormRuleView(this);
+            formRuleView.Show();
+        }
+
+        public void Receive(object obj)
+        {
+            Rule rule = obj as Rule;
+            observableCollection.Add(rule);
         }
     }
 }

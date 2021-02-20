@@ -6,6 +6,7 @@ namespace Watchdog.Entities
     public class Rule : IPersistable
     {
         [PrimaryKey]
+        public string Id { get; set; }
         public string Name { get; set; }
         [ForeignKey]
         [MultiValue]

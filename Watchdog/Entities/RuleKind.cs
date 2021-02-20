@@ -2,7 +2,7 @@
 
 namespace Watchdog.Entities
 {
-    public class RuleKind
+    public class RuleKind : IPersistable
     {
         [PrimaryKey]
         public string RuleCode { get; set; }
