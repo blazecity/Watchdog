@@ -15,6 +15,7 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
     {
         private IEmbeddedRuleUserControl passedUc;
         private readonly IPassObject passedForm;
+        private readonly Rule ruleForEditing;
 
         public FormRuleView()
         {
@@ -27,9 +28,16 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
             cbRuleKind.ItemsSource = ruleKinds;
         }
 
-        public FormRuleView(IPassObject passedForm) : this()
+        public FormRuleView(IPassObject passedForm, Rule ruleForEditing = null) : this()
         {
             this.passedForm = passedForm;
+            this.ruleForEditing = ruleForEditing;
+            if (ruleForEditing != null)
+            {
+                cbRuleKind.SelectedItem = ruleForEditing.RuleKind;
+                ruleName.Text = ruleForEditing.Name;
+                cbRuleKind.IsEnabled = false;
+            }
         }
 
         private void ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -70,6 +78,11 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
         private void SetNewUserControl(IEmbeddedRuleUserControl userControl)
         {
             passedUc = userControl;
+            if (ruleForEditing != null)
+            {
+                passedUc.EditMode = true;
+                passedUc.PassedRule = ruleForEditing;
+            }
             MainView.Children.Add(userControl as UserControl);
         }
 
@@ -77,18 +90,25 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
         {
             RuleKind selectedRuleKind = cbRuleKind.SelectedItem as RuleKind;
             string uniqueId = Guid.NewGuid().ToString();
-            if (selectedRuleKind.RuleCode == "asset_allocation_boundaries")
+            if (ruleForEditing != null)
             {
-                Rule rule = new Rule { Id = uniqueId, RuleKind = selectedRuleKind, Name = ruleName.Text };
-                passedForm.Receive(rule);
+                passedUc.SubmitEdit();
                 return;
             }
-
-            Rule newRule = passedUc.Submit(uniqueId, selectedRuleKind, ruleName.Text);
-            newRule.Id = uniqueId;
-            newRule.Name = ruleName.Text;
-            newRule.RuleKind = selectedRuleKind;
-            passedForm.Receive(newRule);
+            else
+            {
+                if (selectedRuleKind.RuleCode == "asset_allocation_boundaries")
+                {
+                    Rule rule = new Rule { Id = uniqueId, RuleKind = selectedRuleKind, Name = ruleName.Text };
+                    ExcelObjectMapper.Persist(rule);
+                    passedForm.Receive(rule);
+                }
+                else
+                {
+                    Rule newRule = passedUc.Submit(uniqueId, selectedRuleKind, ruleName.Text);
+                    passedForm.Receive(newRule);
+                }
+            }
             Close();
         }
     }

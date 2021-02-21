@@ -7,5 +7,6 @@ namespace Watchdog.Forms.Util
         bool EditMode {get; set; }
         Rule PassedRule { get; set; }
         Rule Submit(string uniqueId, RuleKind ruleKind, string ruleName);
+        Rule SubmitEdit();
     }
 }

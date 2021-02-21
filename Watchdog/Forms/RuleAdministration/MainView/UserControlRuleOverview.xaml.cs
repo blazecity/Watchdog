@@ -22,6 +22,13 @@ namespace Watchdog.Forms.RuleAdministration.MainView
         {
             InitializeComponent();
             BindData(DgRules, true);
+            List<Rule> loadedRules = new List<Rule>();
+            loadedRules.AddRange(ExcelObjectMapper.GetAllObjects<Rule>());
+            loadedRules.AddRange(ExcelObjectMapper.GetAllObjects<DurationRule>());
+            loadedRules.AddRange(ExcelObjectMapper.GetAllObjects<NumericRule>());
+            loadedRules.AddRange(ExcelObjectMapper.GetAllObjects<RatingRatioRule>());
+            observableCollection = new ObservableCollection<Rule>(loadedRules);
+            DgRules.ItemsSource = observableCollection;
             funds = new List<Fund>(ExcelObjectMapper.GetAllObjects<Fund>());
         }
 
@@ -140,6 +147,13 @@ namespace Watchdog.Forms.RuleAdministration.MainView
         {
             Rule rule = obj as Rule;
             observableCollection.Add(rule);
+        }
+
+        private void EditRuleClick(object sender, RoutedEventArgs e)
+        {
+            Rule selectedRule = DgRules.SelectedItem as Rule;
+            FormRuleView formRuleView = new FormRuleView(this, selectedRule);
+            formRuleView.Show();
         }
     }
 }

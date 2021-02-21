@@ -221,6 +221,9 @@
     <Compile Include="Forms\Settings\FormSettings.xaml.cs">
       <DependentUpon>FormSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Settings\UserControlSettingsAsset.xaml.cs">
+      <DependentUpon>UserControlSettingsAsset.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Settings\UserControlSettingsCountry.xaml.cs">
       <DependentUpon>UserControlSettingsCountry.xaml</DependentUpon>
     </Compile>
@@ -358,6 +361,10 @@
     <Page Include="Forms\Settings\FormSettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Settings\UserControlSettingsAsset.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\Settings\UserControlSettingsAssetClass.xaml">
       <SubType>Designer</SubType>

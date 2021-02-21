@@ -30,7 +30,7 @@
             RowEditEnding="DgRowEditEnding">
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Bearbeiten" />
+                    <MenuItem Click="EditRuleClick" Header="Bearbeiten" />
                     <MenuItem Click="MenuItemDeleteClick" Header="Löschen" />
                 </ContextMenu>
             </DataGrid.ContextMenu>

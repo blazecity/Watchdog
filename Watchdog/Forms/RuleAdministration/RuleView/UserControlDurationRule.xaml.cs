@@ -12,15 +12,31 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
     /// </summary>
     public partial class UserControlDurationRule : UserControlCustom<DurationRuleEntry>, IEmbeddedRuleUserControl
     {
+        private DurationRule passedRule;
+
         public UserControlDurationRule()
         {
             InitializeComponent();
-            BindData(DgDurationRuleEntries);
+            BindData(DgDurationRuleEntries, false);
             currencyColumn.ItemsSource = new ObservableCollection<Currency>(ExcelObjectMapper.GetAllObjects<Currency>());
         }
 
         public bool EditMode { get; set; }
-        public Rule PassedRule { get; set; }
+        public Rule PassedRule
+        {
+            get
+            {
+                return passedRule;
+            }
+            set
+            {
+                passedRule = value as DurationRule;
+                foreach (DurationRuleEntry entry in passedRule.DurationRuleEntries)
+                {
+                    observableCollection.Add(entry);
+                }
+            }
+        }
 
         public Rule Submit(string uniqueId, RuleKind ruleKind, string ruleName)
         {
@@ -38,6 +54,16 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
             base.ButtonSubmitClick(null, null);
             ExcelObjectMapper.Persist(newRule);
             return newRule;
+        }
+
+        public Rule SubmitEdit()
+        {
+            if (EditMode)
+            {
+                passedRule.DurationRuleEntries = new List<DurationRuleEntry>(observableCollection);
+                ExcelObjectMapper.Update(PassedRule as DurationRule);
+            }
+            return PassedRule;
         }
     }
 }

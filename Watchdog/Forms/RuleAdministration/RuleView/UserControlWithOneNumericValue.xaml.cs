@@ -12,6 +12,7 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
     {
         public bool EditMode { get; set; }
         public Rule PassedRule { get; set; }
+
         private readonly NumericViewModel nvm;
 
         public UserControlWithOneNumericValue()
@@ -23,6 +24,7 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
 
         public Rule Submit(string uniqueId, RuleKind ruleKind, string ruleName)
         {
+            
             NumericRule numericRule = new NumericRule 
             { 
                 Id = uniqueId,
@@ -32,6 +34,15 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
             };
             ExcelObjectMapper.Persist(numericRule);
             return numericRule;
+        }
+
+        public Rule SubmitEdit()
+        {
+            if (EditMode)
+            {
+                ExcelObjectMapper.Update(PassedRule as NumericRule);
+            }
+            return PassedRule;
         }
     }
 }

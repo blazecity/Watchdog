@@ -1,6 +1,5 @@
 ﻿using Watchdog.Entities;
 using Watchdog.Forms.Util;
-using System.Collections.Generic;
 using ExShift.Mapping;
 
 namespace Watchdog.Forms.RuleAdministration.RuleView
@@ -8,8 +7,10 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
     /// <summary>
     /// Interaktionslogik für UserControlAllowListAssets.xaml
     /// </summary>
-    public partial class UserControlAllowListAssets : UserControlCustom<Asset>, IEmbeddedRuleUserControl
+    public partial class UserControlAllowListAssets : UserControlCustomAllowBanList<Asset>, IEmbeddedRuleUserControl
     {
+        private AllowList<Asset> passedRule;
+
         public UserControlAllowListAssets()
         {
             InitializeComponent();
@@ -17,7 +18,23 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
         }
 
         public bool EditMode { get; set; }
-        public Rule PassedRule { get; set; }
+        public Rule PassedRule { 
+            get 
+            {
+                return passedRule;
+            } 
+            set
+            {
+                passedRule = value as AllowList<Asset>;
+                foreach (AllowBanListChildViewModel<Asset> viewModelItem in viewModelCollection)
+                {
+                    if (passedRule.Allowed.Contains(viewModelItem.BoundObject))
+                    {
+                        viewModelItem.IsChecked = true;
+                    }
+                }
+            }
+        }
 
         public Rule Submit(string uniqueId, RuleKind ruleKind, string ruleName)
         {
@@ -26,10 +43,20 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
                 Id = uniqueId,
                 RuleKind = ruleKind,
                 Name = ruleName,
-                Allowed = new List<Asset>(observableCollection)
+                Allowed = GetCheckedItems()
             };
             ExcelObjectMapper.Persist(allowList);
             return allowList;
+        }
+
+        public Rule SubmitEdit()
+        {
+            if (EditMode)
+            {
+                passedRule.Allowed = GetCheckedItems();
+                ExcelObjectMapper.Update(passedRule);
+            }
+            return passedRule;
         }
     }
 }

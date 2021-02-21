@@ -11,6 +11,7 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
     public partial class UserControlMaxRatingRatio : UserControl, IEmbeddedRuleUserControl
     {
         private readonly RatingRatioRuleViewModel viewModel;
+        private RatingRatioRule passedRule;
 
         public UserControlMaxRatingRatio()
         {
@@ -20,7 +21,19 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
         }
 
         public bool EditMode { get; set; }
-        public Rule PassedRule { get; set; }
+        public Rule PassedRule
+        {
+            get
+            {
+                return passedRule;
+            }
+            set
+            {
+                passedRule = value as RatingRatioRule;
+                viewModel.RatingClass = passedRule.RatingClass;
+                viewModel.Ratio = passedRule.MaxRatio;
+            }
+        }
 
         public Rule Submit(string uniqueId, RuleKind ruleKind, string ruleName)
         {
@@ -34,6 +47,17 @@ namespace Watchdog.Forms.RuleAdministration.RuleView
             };
             ExcelObjectMapper.Persist(newRule);
             return newRule;
+        }
+
+        public Rule SubmitEdit()
+        {
+            if (EditMode)
+            {
+                passedRule.RatingClass = viewModel.RatingClass;
+                passedRule.MaxRatio = viewModel.Ratio;
+                ExcelObjectMapper.Update(PassedRule as RatingRatioRule);
+            }
+            return passedRule;
         }
     }
 }

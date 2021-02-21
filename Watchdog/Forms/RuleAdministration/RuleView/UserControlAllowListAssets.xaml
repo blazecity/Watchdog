@@ -1,4 +1,4 @@
-﻿<local:UserControlCustom
+﻿<local:UserControlCustomAllowBanList
     x:Class="Watchdog.Forms.RuleAdministration.RuleView.UserControlAllowListAssets"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,22 +14,15 @@
         <DataGrid
             x:Name="DgAssets"
             AutoGenerateColumns="False"
-            RowEditEnding="DgRowEditEnding">
+            CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn
-                    Width="0.4*"
-                    Binding="{Binding AssetId, Mode=TwoWay}"
-                    Header="Asset-ID" />
+                <DataGridCheckBoxColumn Width="auto" Binding="{Binding IsChecked}" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding Name, Mode=TwoWay}"
-                    Header="Name" />
+                    Binding="{Binding BoundObject.Name}"
+                    Header="Asset"
+                    IsReadOnly="True" />
             </DataGrid.Columns>
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Click="MenuItemDeleteClick" Header="Löschen" />
-                </ContextMenu>
-            </DataGrid.ContextMenu>
         </DataGrid>
     </StackPanel>
-</local:UserControlCustom>
+</local:UserControlCustomAllowBanList>

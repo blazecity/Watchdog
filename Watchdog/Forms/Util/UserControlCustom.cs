@@ -16,17 +16,25 @@ namespace Watchdog.Forms.Util
         public UserControlCustom()
         {
             dataGridCache = new DataGridCache<T>();
-            observableCollection = new ObservableCollection<T>(ExcelObjectMapper.GetAllObjects<T>());
+            
         }
 
-        public void BindData(DataGrid controlToBind, bool disableCollectionChanged = false)
+        public void BindData(DataGrid controlToBind, bool loadEntries = true, bool disableCollectionChanged = false)
         {
             dataGrid = controlToBind;
-            controlToBind.ItemsSource = observableCollection;
             if (!disableCollectionChanged)
             {
+                if (loadEntries)
+                {
+                    observableCollection = new ObservableCollection<T>(ExcelObjectMapper.GetAllObjects<T>());
+                }
                 observableCollection.CollectionChanged += CollectionChanged;
             }
+            else
+            {
+                observableCollection = new ObservableCollection<T>();
+            }
+            controlToBind.ItemsSource = observableCollection;
         }
 
         public virtual void MenuItemDeleteClick(object sender, RoutedEventArgs e)

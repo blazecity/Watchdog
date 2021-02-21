@@ -1,4 +1,5 @@
 ﻿using ExShift.Mapping;
+using System.Collections.Generic;
 
 namespace Watchdog.Entities
 {
@@ -15,6 +16,25 @@ namespace Watchdog.Entities
         public Rating()
         {
             
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Rating rating &&
+                   Id == rating.Id &&
+                   RatingCode == rating.RatingCode &&
+                   RatingNumericValue == rating.RatingNumericValue &&
+                   EqualityComparer<RatingAgency>.Default.Equals(Agency, rating.Agency);
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 139755935;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(RatingCode);
+            hashCode = hashCode * -1521134295 + RatingNumericValue.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<RatingAgency>.Default.GetHashCode(Agency);
+            return hashCode;
         }
     }
 }
