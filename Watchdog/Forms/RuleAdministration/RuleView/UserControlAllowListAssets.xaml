@@ -11,17 +11,13 @@
     x:TypeArguments="entity:Asset"
     mc:Ignorable="d">
     <StackPanel>
-        <DataGrid
-            x:Name="DgAssets"
-            AutoGenerateColumns="False"
-            CanUserAddRows="False">
+        <DataGrid x:Name="DgAssets" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Width="auto" Binding="{Binding IsChecked}" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding BoundObject.Name}"
-                    Header="Asset"
-                    IsReadOnly="True" />
+                    Header="Asset" />
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>
