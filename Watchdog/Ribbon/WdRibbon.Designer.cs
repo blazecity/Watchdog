@@ -41,6 +41,7 @@ namespace Watchdog.Ribbon
             this.wdRibbonButtonSettings = this.Factory.CreateRibbonButton();
             this.wdRibbonButtonFundAdmin = this.Factory.CreateRibbonButton();
             this.wdRibbonButtonRuleAdmin = this.Factory.CreateRibbonButton();
+            this.wdRibbonButtonStartUp = this.Factory.CreateRibbonButton();
             this.wdRibbonTab.SuspendLayout();
             this.wdRibbonGroup.SuspendLayout();
             this.SuspendLayout();
@@ -53,6 +54,7 @@ namespace Watchdog.Ribbon
             // 
             // wdRibbonGroup
             // 
+            this.wdRibbonGroup.Items.Add(this.wdRibbonButtonStartUp);
             this.wdRibbonGroup.Items.Add(this.wdRibbonButtonSettings);
             this.wdRibbonGroup.Items.Add(this.wdRibbonButtonFundAdmin);
             this.wdRibbonGroup.Items.Add(this.wdRibbonButtonRuleAdmin);
@@ -86,6 +88,15 @@ namespace Watchdog.Ribbon
             this.wdRibbonButtonRuleAdmin.ShowImage = true;
             this.wdRibbonButtonRuleAdmin.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.WdRibbonButtonRuleAdmin_Click);
             // 
+            // wdRibbonButtonStartUp
+            // 
+            this.wdRibbonButtonStartUp.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.wdRibbonButtonStartUp.Image = ((System.Drawing.Image)(resources.GetObject("wdRibbonButtonStartUp.Image")));
+            this.wdRibbonButtonStartUp.Label = "Setup";
+            this.wdRibbonButtonStartUp.Name = "wdRibbonButtonStartUp";
+            this.wdRibbonButtonStartUp.ShowImage = true;
+            this.wdRibbonButtonStartUp.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.WdRibbonButtonSetupClick);
+            // 
             // WdRibbon
             // 
             this.Name = "WdRibbon";
@@ -107,5 +118,6 @@ namespace Watchdog.Ribbon
         internal Microsoft.Office.Tools.Ribbon.RibbonButton wdRibbonButtonFundAdmin;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton wdRibbonButtonSettings;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton wdRibbonButtonRuleAdmin;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton wdRibbonButtonStartUp;
     }
 }
